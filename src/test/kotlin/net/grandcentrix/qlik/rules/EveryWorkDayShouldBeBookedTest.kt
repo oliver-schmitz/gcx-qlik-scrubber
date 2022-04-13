@@ -11,7 +11,7 @@ import java.time.temporal.TemporalAdjusters
 internal class EveryWorkDayShouldBeBookedTest{
 
     @Test
-    fun `Logged day Should not be in the report`() {
+    fun `Logged days Should not be in the report`() {
         val date = LocalDate.of(2022, 1, 1).atStartOfDay().toInstant(ZoneOffset.UTC)
         val logs = listOf<Work>(Work(date, 0.0, 0.0))
         EveryWorkDayShouldBeBooked().eval(logs).forEach { println(it) }

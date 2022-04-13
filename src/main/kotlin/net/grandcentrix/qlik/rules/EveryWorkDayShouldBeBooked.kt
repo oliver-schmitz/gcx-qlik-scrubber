@@ -5,7 +5,6 @@ import net.grandcentrix.qlik.model.Work
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.ZoneId
-import java.time.temporal.TemporalAdjusters
 
 /**
  * Evaluates missing work logs. Omits Saturday and Sundays.
@@ -21,9 +20,9 @@ class EveryWorkDayShouldBeBooked: Rule {
         val startOfTheMonths = daysLogged.map { it.withDayOfMonth(1) }
 
         for(startOfTheMonth in startOfTheMonths){
-            val lastDayOfTheMonth = startOfTheMonth.with(TemporalAdjusters.lastDayOfMonth()).plusDays(1)
+            val today = LocalDate.now().plusDays(1)
             val delta = startOfTheMonth
-                .datesUntil(lastDayOfTheMonth)
+                .datesUntil(today)
                 .filter { it.dayOfWeek != DayOfWeek.SATURDAY }
                 .filter { it.dayOfWeek != DayOfWeek.SUNDAY }
                 .filter { !daysLogged.contains(it)}
